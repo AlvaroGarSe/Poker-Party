@@ -1,36 +1,23 @@
-# Godot 4+ specific ignores
+# Godot 4+
 .godot/
 .nomedia
-
-# Godot-specific ignores
-.import/
-export.cfg
 export_credentials.cfg
 *.tmp
-
-# Imported translations (automatically generated from CSV files)
-*.translation
-
-# Mono-specific ignores
-.mono/
-data_*/
-mono_crash.*.json
 
 # Visual Studio / CMake
 .vs/
 out/
+build/
 CMakeUserPresets.json
 CMakeCache.txt
 CMakeFiles/
 compile_commands.json
 .cache/
-
-# Visual Studio Debug
 *.user
 *.suo
 *.sdf
-*.ilk
 
+# Compile artifacts
 *.obj
 *.os
 *.o
@@ -40,5 +27,4 @@ compile_commands.json
 *.exp
 *.lib
 .sconsign.dblite
-build/
 bin/
