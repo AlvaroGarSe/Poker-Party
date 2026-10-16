@@ -1,6 +1,6 @@
 #include "register_types.h"
 
-#include "card.h"
+#include "systems/card.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -13,7 +13,7 @@ void initialize_pokerparty_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	GDREGISTER_RUNTIME_CLASS(Card);
+	GDREGISTER_CLASS(Card);
 }
 
 void uninitialize_pokerparty_module(ModuleInitializationLevel p_level) {

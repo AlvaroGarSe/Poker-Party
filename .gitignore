@@ -15,3 +15,30 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Visual Studio / CMake
+.vs/
+out/
+CMakeUserPresets.json
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+.cache/
+
+# Visual Studio Debug
+*.user
+*.suo
+*.sdf
+*.ilk
+
+*.obj
+*.os
+*.o
+*.dll
+*.pdb
+*.ilk
+*.exp
+*.lib
+.sconsign.dblite
+build/
+bin/
