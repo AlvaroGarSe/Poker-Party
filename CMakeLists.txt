@@ -57,7 +57,7 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/*.h")
 
-target_sources(${LIBNAME} PRIVATE ${SOURCES} "src/systems/poker_manager.h" "src/systems/poker_manager.cpp" "src/PPK_resource.h")
+target_sources(${LIBNAME} PRIVATE ${SOURCES} "src/systems/poker_manager.h" "src/systems/poker_manager.cpp" "src/PPK_resource.h" "src/systems/poker_card.h"  "src/systems/poker_card.cpp")
 
 # Fetch a list of the xml files to use for documentation and add to our target
 file(GLOB_RECURSE DOC_XML LIST_DIRECTORIES NO CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/doc_classes/*.xml")

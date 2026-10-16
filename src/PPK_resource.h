@@ -1,3 +1,4 @@
+// Alvaro Garcia Serrano
 #ifndef PPK_RESOURCE
 #define PPK_RESOURCE
 

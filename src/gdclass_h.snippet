@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+    <CodeSnippet Format="1.0.0">
+        <Header>
+            <Title>GDExtension class header</Title>
+            <Shortcut>gdh</Shortcut>
+            <SnippetTypes>
+                <SnippetType>Expansion</SnippetType>
+            </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Declarations>
+                <Literal><ID>DefInclude</ID><Default>CLASS_NAME</Default></Literal>
+                <Literal><ID>ClassName</ID><Default>MyClass</Default></Literal>
+                <Literal><ID>Base</ID><Default>Node</Default></Literal>
+                <Literal><ID>baseinclude</ID><Default>node</Default></Literal>
+            </Declarations>
+            <Code Language="CPP">
+                <![CDATA[// Alvaro Garcia Serrano
+#ifndef PPK_$DefInclude$
+#define PPK_$DefInclude$
+
+#include <godot_cpp/classes/$baseinclude$.hpp>
+
+using namespace godot;
+
+class $ClassName$ : public $Base$ {
+	GDCLASS($ClassName$, $Base$);
+public:
+    $end$
+
+protected:
+	static void _bind_methods() {
+        
+    }
+
+};
+
+#endif // !PPK_$DefInclude$
+                ]]>
+            </Code>
+        </Snippet>
+    </CodeSnippet>
+</CodeSnippets>
