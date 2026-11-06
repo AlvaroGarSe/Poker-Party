@@ -17,10 +17,12 @@ public:
 
     void initialize_deck();
 
+    void _ready() override;
 protected:
     static void _bind_methods() {
 
     }
+
 
 };
 

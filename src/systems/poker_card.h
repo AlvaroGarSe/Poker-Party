@@ -39,6 +39,7 @@ public:
     Rank rank;
 
     uint64_t id;
+    
     StringName name;
 
     PokerCard(Rank rank, Suit suit);

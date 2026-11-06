@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "vs-debug-local",
+      "displayName": "Visual Studio (local)",
+      "inherits": "vs-debug",
+      "cacheVariables": {
+        "GODOT_EXECUTABLE": "C:/Users/algar/Documents/Godot/Godot_v4.5-stable_win64.exe"
+      }
+    }
+  ]
+}

@@ -1,12 +1,14 @@
 # Using the same minimum as the godot-cpp project
-cmake_minimum_required(VERSION 3.3)
+cmake_minimum_required(VERSION 3.17)
 
 # Silence unused variable warning when specified from toolchain
 if(CMAKE_C_COMPILER)
 endif()
 
-set(LIBNAME "libpokerparty") # "The name of the library"
+set(LIBNAME "libpokerparty")
 set(GODOT_PROJECT_DIR "project" CACHE STRING "The directory of a Godot project folder")
+
+set(GODOT_EXECUTABLE "$ENV{GODOT_EXECUTABLE}" CACHE FILEPATH "Godot editor executable used for debugging")
 
 # Make sure all the dependencies are satisfied
 find_package(Python3 3.4 REQUIRED)
@@ -24,12 +26,6 @@ if(NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/godot-cpp/src")
         COMMAND_ERROR_IS_FATAL ANY
     )
 endif()
-set(GODOTCPP_API_VERSION "4.5" CACHE STRING "Godot API version to target")
-set(GODOTCPP_TARGET "template_debug" CACHE STRING "Godot build target")
-add_subdirectory(godot-cpp SYSTEM)
-
-# When compiling for emscripten, this toolchainhack needs to be included.
-# set(CMAKE_PROJECT_<project-name>_INCLUDE ${godot-cpp_SOURCE_DIR}/cmake/emsdkHack.cmake)
 
 # Create the gen directory at configure time so IDEs can see generated headers immediately after generate_bindings
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/godot-cpp/gen/include")
@@ -57,12 +53,18 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
     "${PROJECT_SOURCE_DIR}/src/*.cpp"
     "${PROJECT_SOURCE_DIR}/src/*.h")
 
-target_sources(${LIBNAME} PRIVATE ${SOURCES} "src/systems/poker_manager.h" "src/systems/poker_manager.cpp" "src/PPK_resource.h" "src/systems/poker_card.h"  "src/systems/poker_card.cpp")
+target_sources(${LIBNAME} PRIVATE ${SOURCES})
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+source_group(TREE "${PROJECT_SOURCE_DIR}/src" PREFIX "src" FILES ${SOURCES})
+if(TARGET godot-cpp)
+    set_target_properties(godot-cpp PROPERTIES FOLDER "dependencies")
+endif()
+
+target_include_directories(${LIBNAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 # Fetch a list of the xml files to use for documentation and add to our target
 file(GLOB_RECURSE DOC_XML LIST_DIRECTORIES NO CONFIGURE_DEPENDS "${PROJECT_SOURCE_DIR}/doc_classes/*.xml")
-
-# conditionally add doc data to compile output
 if(DOC_XML)
     if(GODOTCPP_TARGET MATCHES "editor|template_debug")
         target_doc_sources(${LIBNAME} "${DOC_XML}")
@@ -78,7 +80,6 @@ set_target_properties(${LIBNAME}
     PROPERTIES
     # The generator expression here prevents msvc from adding a Debug or Release subdir.
     RUNTIME_OUTPUT_DIRECTORY "$<1:${PROJECT_SOURCE_DIR}/bin/${GODOTCPP_PLATFORM}>"
-
     PREFIX ""
     OUTPUT_NAME "${LIBNAME}${GODOTCPP_SUFFIX}"
 )
@@ -89,3 +90,12 @@ add_custom_command(TARGET ${LIBNAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory "${GODOT_PROJECT_BINARY_DIR}"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${LIBNAME}>" "${GODOT_PROJECT_BINARY_DIR}/$<TARGET_FILE_NAME:${LIBNAME}>"
 )
+
+# Visual Studio depuration
+# Command line arguments are managed by the extension Smart Command Line Arguments.
+if(MSVC AND GODOT_EXECUTABLE)
+    set_target_properties(${LIBNAME} PROPERTIES
+        VS_DEBUGGER_COMMAND "${GODOT_EXECUTABLE}"
+        VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/${GODOT_PROJECT_DIR}")
+    set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT ${LIBNAME})
+endif()

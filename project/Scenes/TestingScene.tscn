@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://c2wwxsdyr6beh"]
+[gd_scene load_steps=2 format=3 uid="uid://c2wwxsdyr6beh"]
+
+[ext_resource type="Texture2D" uid="uid://ce2t4vhpll7vv" path="res://icon.svg" id="1_fi1yh"]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(160, 129)
+texture = ExtResource("1_fi1yh")
+
+[node name="PokerManager" type="PokerManager" parent="."]

@@ -7,7 +7,7 @@ export_credentials.cfg
 # Visual Studio / CMake
 .vs/
 out/
-build/
+build*/
 CMakeUserPresets.json
 CMakeCache.txt
 CMakeFiles/

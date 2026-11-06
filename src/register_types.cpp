@@ -1,6 +1,7 @@
 #include "register_types.h"
 
 #include "systems/card.h"
+#include "systems/poker_manager.h"
 
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
@@ -13,7 +14,8 @@ void initialize_pokerparty_module(ModuleInitializationLevel p_level) {
 		return;
 	}
 
-	GDREGISTER_CLASS(Card);
+	//GDREGISTER_CLASS(Card);
+	GDREGISTER_CLASS(PokerManager);
 }
 
 void uninitialize_pokerparty_module(ModuleInitializationLevel p_level) {
